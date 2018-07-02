@@ -16,13 +16,14 @@ io.on('connection',(socket)=>{
         console.log('client disconnected');
     });
     
-    socket.emit("newMessage",{
-        to:"mehboob",
-        text:"how are you",
-        createdAt: new Date().getTime().toString()
-    });
-    socket.on("createMessage",function (newMessage){
-        console.log("got message",newMessage);
+    socket.on("createMessage",function (message){
+        console.log("got message",message);
+        io.emit('newMessage', {
+                from: message.email,
+                text: message.text,
+                createdAt: new Date().getTime()
+            }
+        );
     });
 });
 

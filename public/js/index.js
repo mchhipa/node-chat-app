@@ -2,11 +2,11 @@ var socket = io();
 
 socket.on('connect',()=>{
 
-    socket.on('newMessage',function (newMessage){
-        console.log("got message",newMessage);
-    });
+   socket.on("newMessage", (message)=>{
+       console.log(message);
+   })
     socket.emit('createMessage',{
-        to:"anon",
+        to:"anonymous",
         text:"doing just fine",
         createdAt: new Date().getTime().toString()
     });
