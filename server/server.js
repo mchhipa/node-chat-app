@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const { generateMessage } = require('./utils/message')
+const { generateMessage,generateLocationMessage } = require('./utils/message')
 
 io.on('connection',(socket)=>{
     console.log("new user connected");
@@ -25,9 +25,11 @@ io.on('connection',(socket)=>{
             console.log(typeof cb)
             cb("this is string from server");
         }
-        
     });
-        
+    socket.on("createLocationMessage",(message) =>{
+        console.log(message)
+        io.emit("newLocationMessage", generateLocationMessage('admin', message.lat ,message.lng));
+    })
 });
 
 
