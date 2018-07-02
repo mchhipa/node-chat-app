@@ -6,7 +6,7 @@ socket.on('connect',()=>{
        console.log(message);
    })
     socket.emit('createMessage',{
-        to:"anonymous",
+        from:"anonymous",
         text:"doing just fine",
         createdAt: new Date().getTime().toString()
     });
