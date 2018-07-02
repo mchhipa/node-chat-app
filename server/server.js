@@ -15,10 +15,19 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',()=>{
         console.log('client disconnected');
     });
-    
+    socket.emit('newMessage',{
+        from: "Admin",
+        text:"Welcome to chat app",
+        createdAt: new Date().getTime()
+    })
+    socket.broadcast.emit("newMessage",{
+        from:"Admin",
+        text:"new user joined",
+        createdAt: new Date().getTime()
+    })
     socket.on("createMessage",function (message){
         console.log("got message",message);
-        io.emit('newMessage', {
+        socket.broadcast.emit('newMessage', {
                 from: message.email,
                 text: message.text,
                 createdAt: new Date().getTime()
