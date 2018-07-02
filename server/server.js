@@ -11,17 +11,11 @@ const io = socketIO(server);
 
 io.on('connection',(socket)=>{
     console.log("new user connected");
-    socket.emit('newEmail',{
-        from:"mehboob chhipa",
-        text:"how are you",
-        createdAt: new Date().getTime().toString()
-    });
+    
     socket.on('disconnect',()=>{
         console.log('client disconnected');
     });
-    socket.on("createEmail",function (newEmail){
-        console.log("New Email",newEmail);
-    });
+    
     socket.emit("newMessage",{
         to:"mehboob",
         text:"how are you",
