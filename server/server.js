@@ -18,15 +18,16 @@ io.on('connection',(socket)=>{
     });
     socket.emit('newMessage',generateMessage("Admin","Welcome to chat app"));
     socket.broadcast.emit("newMessage",generateMessage("Admin","new user joined"));
-    socket.on("createMessage",function (message){
+    socket.on("createMessage",(message,cb) => {
         console.log("got message",message);
-        socket.broadcast.emit('newMessage', {
-                from: message.from,
-                text: message.text,
-                createdAt: new Date().getTime()
-            }
-        );
+        io.emit('newMessage', generateMessage(message.from,message.text));
+        if(typeof cb !== 'undefined'){
+            console.log(typeof cb)
+            cb("this is string from server");
+        }
+        
     });
+        
 });
 
 

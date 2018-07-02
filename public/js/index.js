@@ -10,5 +10,12 @@ socket.on('connect',()=>{
         text:"doing just fine",
         createdAt: new Date().getTime().toString()
     });
+
+    socket.emit('createMessage', {
+        from:"Alex",
+        text:'message'
+        },  (st) => {
+        console.log(st);
+        });
 });
 
